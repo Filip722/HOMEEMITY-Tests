@@ -21,22 +21,6 @@ def init_browser():
         return webdriver.Chrome(options=chrome_options)
 
 
-def test_incorrect_login():
-    driver = init_browser()
-    driver.get("https://homeemity.com/login/")
-    driver.find_element_by_name('uemail').send_keys(test_email)
-    driver.find_element_by_name('upassword').send_keys('wrong_password' + Keys.RETURN)
-
-    try:
-        WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.CLASS_NAME, 'alert')))
-        output_text = driver.find_element_by_class_name("alert")
-        assert output_text.text == "Email or password is incorrect"
-    except TimeoutException:
-        assert False
-
-    driver.close()
-
-
 def test_incorrect_link_address():
     driver = init_browser()
     driver.get(
