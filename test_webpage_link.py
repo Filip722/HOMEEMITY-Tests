@@ -10,6 +10,16 @@ delay = 3  # seconds
 test_email = 'test@test.com'
 test_password = 'test1234'
 
+def init_browser():
+    if os.name == 'nt':
+        return webdriver.Chrome()
+    else:
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--disable-gpu')
+        return webdriver.Chrome(options=chrome_options)
+
 
 def test_incorrect_login():
     driver = init_browser()
